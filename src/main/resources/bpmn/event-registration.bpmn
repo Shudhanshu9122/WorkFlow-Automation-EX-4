@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:modeler="http://camunda.org/schema/modeler/1.0"
+                  id="Definitions_EventRegistration"
+                  targetNamespace="http://bpmn.io/schema/bpmn"
+                  exporter="Camunda Web Modeler"
+                  exporterVersion="8.8.0"
+                  modeler:executionPlatform="Camunda Cloud"
+                  modeler:executionPlatformVersion="8.8.0">
+  <bpmn:process id="event-registration" name="Campus Event Registration" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_EventReg" name="Registration Initiated">
+      <bpmn:outgoing>Flow_RegStartToForm</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:userTask id="Task_FillEventForm" name="Fill Event Registration Form">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formId="event-registration-form" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_RegStartToForm</bpmn:incoming>
+      <bpmn:outgoing>Flow_FormToEnd</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <bpmn:endEvent id="EndEvent_RegComplete" name="Registration Completed">
+      <bpmn:incoming>Flow_FormToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_RegStartToForm" sourceRef="StartEvent_EventReg" targetRef="Task_FillEventForm" />
+    <bpmn:sequenceFlow id="Flow_FormToEnd" sourceRef="Task_FillEventForm" targetRef="EndEvent_RegComplete" />
+  </bpmn:process>
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_EventReg">
+    <bpmndi:BPMNPlane id="BPMNPlane_EventReg" bpmnElement="event-registration">
+      <bpmndi:BPMNShape id="StartEvent_EventReg_di" bpmnElement="StartEvent_EventReg">
+        <dc:Bounds x="180" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="169" y="145" width="58" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_FillEventForm_di" bpmnElement="Task_FillEventForm">
+        <dc:Bounds x="280" y="80" width="140" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_RegComplete_di" bpmnElement="EndEvent_RegComplete">
+        <dc:Bounds x="490" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="478" y="145" width="60" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_RegStartToForm_di" bpmnElement="Flow_RegStartToForm">
+        <di:waypoint x="216" y="120" />
+        <di:waypoint x="280" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_FormToEnd_di" bpmnElement="Flow_FormToEnd">
+        <di:waypoint x="420" y="120" />
+        <di:waypoint x="490" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

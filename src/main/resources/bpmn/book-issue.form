@@ -1,0 +1,76 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.8.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "8.8.0"
+  },
+  "schemaVersion": 16,
+  "id": "book-issue-form",
+  "components": [
+    {
+      "text": "## SRM Central Library — Book Issue Form\n\nPlease fill out your student details and book information below to complete the borrowing request.",
+      "type": "text",
+      "id": "Field_Header"
+    },
+    {
+      "label": "Student Name",
+      "type": "textfield",
+      "id": "Field_StudentName",
+      "key": "studentName",
+      "description": "Enter your full name as registered in university records.",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Registration Number",
+      "type": "textfield",
+      "id": "Field_RegNo",
+      "key": "regNo",
+      "description": "e.g. RA2311003010001",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Book Title / Author / ISBN",
+      "type": "textfield",
+      "id": "Field_BookTitle",
+      "key": "bookTitle",
+      "description": "Title and author of the requested library book.",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Issue Date",
+      "type": "textfield",
+      "id": "Field_IssueDate",
+      "key": "issueDate",
+      "description": "Date of issue (yyyy-MM-dd).",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Reason / Academic Purpose",
+      "type": "textarea",
+      "id": "Field_Reason",
+      "key": "reason",
+      "description": "Purpose of borrowing (e.g. course reference, exam preparation, research).",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "I agree to library terms and conditions (14 days loan period)",
+      "type": "checkbox",
+      "id": "Field_AgreeTerms",
+      "key": "agreeTerms",
+      "defaultValue": true,
+      "description": "Overdue fine of ₹10 per day applies after due date."
+    }
+  ],
+  "type": "default"
+}

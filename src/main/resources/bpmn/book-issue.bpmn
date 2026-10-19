@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  xmlns:modeler="http://camunda.org/schema/modeler/1.0"
+                  id="Definitions_BookIssue"
+                  targetNamespace="http://bpmn.io/schema/bpmn"
+                  exporter="Camunda Web Modeler"
+                  exporterVersion="8.8.0"
+                  modeler:executionPlatform="Camunda Cloud"
+                  modeler:executionPlatformVersion="8.8.0">
+  <bpmn:process id="book-issue" name="Library Book Issue Workflow" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_BookIssueRequested" name="Book Issue Requested">
+      <bpmn:outgoing>Flow_StartToUserTask</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:userTask id="Task_FillBookIssueForm" name="Issue Book Form">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formId="book-issue-form" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_StartToUserTask</bpmn:incoming>
+      <bpmn:outgoing>Flow_UserTaskToServiceTask</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <bpmn:serviceTask id="Task_ConfirmBookIssue" name="Confirm Book Issue">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="confirm-book-issue" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_UserTaskToServiceTask</bpmn:incoming>
+      <bpmn:outgoing>Flow_ServiceTaskToEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="EndEvent_BookIssued" name="Book Issued Successfully">
+      <bpmn:incoming>Flow_ServiceTaskToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_StartToUserTask" sourceRef="StartEvent_BookIssueRequested" targetRef="Task_FillBookIssueForm" />
+    <bpmn:sequenceFlow id="Flow_UserTaskToServiceTask" sourceRef="Task_FillBookIssueForm" targetRef="Task_ConfirmBookIssue" />
+    <bpmn:sequenceFlow id="Flow_ServiceTaskToEnd" sourceRef="Task_ConfirmBookIssue" targetRef="EndEvent_BookIssued" />
+  </bpmn:process>
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_BookIssue">
+    <bpmndi:BPMNPlane id="BPMNPlane_BookIssue" bpmnElement="book-issue">
+      <bpmndi:BPMNShape id="StartEvent_BookIssue_di" bpmnElement="StartEvent_BookIssueRequested">
+        <dc:Bounds x="160" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="149" y="145" width="58" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_FillBookIssueForm_di" bpmnElement="Task_FillBookIssueForm">
+        <dc:Bounds x="260" y="80" width="120" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ConfirmBookIssue_di" bpmnElement="Task_ConfirmBookIssue">
+        <dc:Bounds x="440" y="80" width="130" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_BookIssued_di" bpmnElement="EndEvent_BookIssued">
+        <dc:Bounds x="632" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="618" y="145" width="65" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_StartToUserTask_di" bpmnElement="Flow_StartToUserTask">
+        <di:waypoint x="196" y="120" />
+        <di:waypoint x="260" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_UserTaskToServiceTask_di" bpmnElement="Flow_UserTaskToServiceTask">
+        <di:waypoint x="380" y="120" />
+        <di:waypoint x="440" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ServiceTaskToEnd_di" bpmnElement="Flow_ServiceTaskToEnd">
+        <di:waypoint x="570" y="120" />
+        <di:waypoint x="632" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

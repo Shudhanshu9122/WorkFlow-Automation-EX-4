@@ -1,0 +1,60 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.8.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "8.8.0"
+  },
+  "schemaVersion": 16,
+  "id": "event-registration-form",
+  "components": [
+    {
+      "text": "## SRM Campus Hackathon & Event Registration\n\nPlease fill out the registration form below.",
+      "type": "text",
+      "id": "Field_Header"
+    },
+    {
+      "label": "Participant Full Name",
+      "type": "textfield",
+      "id": "Field_Name",
+      "key": "studentName",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Email Address",
+      "type": "textfield",
+      "id": "Field_Email",
+      "key": "email",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Event Date",
+      "type": "textfield",
+      "id": "Field_Date",
+      "key": "eventDate",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Department / Specialization",
+      "type": "textfield",
+      "id": "Field_Department",
+      "key": "department"
+    },
+    {
+      "label": "Reason for Attending / Project Idea",
+      "type": "textarea",
+      "id": "Field_Reason",
+      "key": "reason",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default"
+}

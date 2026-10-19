@@ -1,0 +1,73 @@
+{
+  "info": {
+    "_postman_id": "a5d8b72e-3294-436f-9812-78d103bf9044",
+    "name": "Camunda 8 Lab EX-4: Book Issue & User Task Form API",
+    "description": "Postman Collection for SRMIST Workflow Automation Exercise 4 (EX-4): Modeling User Tasks with Forms, Tasklist Completion, and Operate Variable Verification.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Start Process Instance (Token halts at User Task)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/book-issue/start",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "book-issue", "start"]
+        },
+        "description": "Starts an instance of 'book-issue'. Execution token halts at the User Task 'Issue Book Form' awaiting Tasklist completion."
+      }
+    },
+    {
+      "name": "2. Complete User Task Form (Simulate Tasklist Form Submission)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"studentName\": \"Sudhanshu Kumar\",\n  \"regNo\": \"RA2311003010001\",\n  \"bookTitle\": \"Clean Architecture: A Craftsman's Guide to Software Structure\",\n  \"issueDate\": \"2026-10-25\",\n  \"reason\": \"Reference material for Cloud Architecture coursework\",\n  \"agreeTerms\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/book-issue/instances/2251799813685301/complete-form",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "book-issue", "instances", "2251799813685301", "complete-form"]
+        },
+        "description": "Simulates filling the book-issue.form in Tasklist with student and book details. Form keys are injected as process variables."
+      }
+    },
+    {
+      "name": "3. Query Instances & Variables (Verify in Operate)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/book-issue/instances",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "book-issue", "instances"]
+        },
+        "description": "Lists all instances showing that studentName, regNo, bookTitle, issueDate, reason, dueDate, and accessionNumber appear as process variables."
+      }
+    }
+  ]
+}
